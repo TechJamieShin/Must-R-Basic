@@ -145,4 +145,55 @@ installed.packages("wordcloud")
 library("RColorBrewer")
 library("wordcloud")
 
+## AGAIN ##
+wordcloud(words = d$word, freq = d$freq, 
+          min.freq = 5, max.words = 200,
+          random.order = FALSE,
+          colors = brewer.pal(8, "Dark2"))
+
+
+convert_count = function(x) {
+  y <- ifelse(x > 0,1,0)
+  y = as.numeric(y)
+  y
+}
+
+convert_count = function(x) {
+  y <- ifelse(x > 0,x,0)
+  y = as.numeric(y)
+  y
+}
+
+DESCRIPT_IMDB=apply(tdm,MARGIN=2,convert_count)
+DESCRIPT_IMDB=as.data.frame(DESCRIPT_IMDB)
+
+TDM = TermDocumentMatrix(corpus_tm)
+
+m = as.matrix(TDM) 
+v = sort(rowSums(m),decreasing=TRUE) # 빈도수를 기준으로 내림차순 정렬
+d = data.frame(word = names(v),freq=v)  # 데이터 프레임 생성
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+
+wordcloud(words = d$word, freq = d$freq, min.freq = 5,  
+          max.words=200, random.order=FALSE,
+          colors=brewer.pal(8, "Dark2"))
+
+# text mining 2
+# extract one genre from Genre
+strsplit(as.character(imdb$Genre[1]), ',') # split char of first row of Genre
+strsplit(as.character(imdb$Genre[1]), ',')[[1]][2] # index of extracted char above
+
+genre <- strsplit(as.character(imdb$Genre), ',')
+genre[[100]]
+genre[[100]][2]
+
+rep_genre <- c() # make empty variable
+for (i in 1:1000) { # range of for
+  rep_genre[i] <- genre[[i]][1] # save genre into rep_genre
+}
+rep_genre
+
+imdb$rep_genre <- rep_genre
 
