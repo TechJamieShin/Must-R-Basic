@@ -62,4 +62,30 @@ Graph2 + facet_wrap(~ Year, ncol = 1)
 Graph2 + coord_flip()
 
 # Bar Chart 
+# plot with only x axis, y axis becomes 'count'
+ggplot(Group_Data) +
+  geom_bar(aes(x = as.factor(Counts), fill = ..count..)) + # ..count.. ?
+  xlab("") + ylab("") +
+  scale_fill_gradient(low = "#CCE5FF", high = "#FF00FF" ) +
+  theme_classic() + ggtitle("Continuous Color")
 
+ggplot(Group_Data) +
+  geom_bar(aes(x = as.factor(Counts), fill = Day), alpha = .4) + 
+  xlab("") + ylab("") +
+  theme_classic() + ggtitle("Discrete Color")
+
+# with x and y
+ggplot(Group_Data) +
+  geom_bar(aes(x = Year, y= Mean, fill = Day), stat = "identity") + 
+  scale_fill_manual(values = c("#C2DAEF","#C2EFDD","#BBAAE9",
+                               "#E9F298","#FABDB3")) +
+  theme_classic()
+
+ggplot(Group_Data) +
+  geom_bar(aes(x = Year, y= Mean, fill = Day), stat = "identity") + 
+  scale_fill_manual(values = c("#C2DAEF","#C2EFDD","#BBAAE9",
+                               "#E9F298","#FABDB3")) +
+  theme_classic() +
+  facet_wrap(~Day)
+
+# visualization (Ch.7.3.2 and Ch.7.3.3) later! #
